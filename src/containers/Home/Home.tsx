@@ -3,13 +3,15 @@ import Card from "../../components/Card/Card";
 import {useCallback, useEffect, useState} from "react";
 import {ApiGetMeal, Meal} from "../types";
 import axiosApi from "../../axiosApi";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Home = () => {
 
     const [meals, setMeals] = useState<Meal[]>([]);
-
+    const [spinner, setSpinner] = useState(false);
     const fetchMeals = useCallback(async () => {
         try {
+            setSpinner(true)
             const {data} = await axiosApi.get<ApiGetMeal | null>('meal.json');
 
             if (data == null) {
@@ -24,6 +26,7 @@ const Home = () => {
         } catch (e) {
             console.log('Error fetch data', e);
         }
+        setSpinner(false)
     }, []);
 
     useEffect(() => {
@@ -31,12 +34,15 @@ const Home = () => {
     }, [fetchMeals]);
 
     const kcalCalculate = meals.map(kcal => {return parseFloat(kcal.kcal)}).reduce((acc, kcal) => acc + kcal, 0);
-    console.log(kcalCalculate);
+
     const deleteCard = async (id: string) => {
         await axiosApi.delete(`meal/${id}.json`);
         fetchMeals()
     }
 
+    if (spinner) {
+        return <Spinner />
+    }
 
     return (
         <>
@@ -45,7 +51,7 @@ const Home = () => {
                 <Link to="/new-meal" className="btn btn-primary">Add new meal</Link>
             </div>
             <div className="mt-3">
-                {meals.reverse().map((meal) => (<Card key={meal.id} type={meal.type} description={meal.description} kcal={meal.kcal} delBtn={() => deleteCard(meal.id)} />))}
+                {meals.reverse().map((meal) => (<Card key={meal.id} type={meal.type} description={meal.description} kcal={meal.kcal} delBtn={() => deleteCard(meal.id)} id={meal.id} />))}
             </div>
         </>
     );
