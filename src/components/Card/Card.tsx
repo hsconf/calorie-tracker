@@ -4,10 +4,14 @@ interface Props {
     type: string;
     description: string;
     kcal: string;
+    delBtn: VoidFunction;
 }
 
 
-const Card: React.FC<Props> = ({type, description, kcal}) => {
+const Card: React.FC<Props> = ({type, description, kcal, delBtn}) => {
+
+
+
     return (
         <div className="card mt-1">
             <div className="card-body d-flex align-items-center">
@@ -25,7 +29,7 @@ const Card: React.FC<Props> = ({type, description, kcal}) => {
                                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                         </svg>
                     </button>
-                    <button className="border-0 bg-transparent">
+                    <button className="border-0 bg-transparent" onClick={delBtn}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                              className="bi bi-trash3" viewBox="0 0 16 16">
                             <path
