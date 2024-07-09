@@ -1,8 +1,12 @@
+import {NavLink} from "react-router-dom";
+
 const NavBar = () => {
     return (
-        <div>
-
-        </div>
+        <nav className="navbar bg-body-tertiary border-bottom">
+            <div className="container">
+                <NavLink to="/" className="navbar-brand mb-0 h1">Home</NavLink>
+            </div>
+        </nav>
     );
 };
 
