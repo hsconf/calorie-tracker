@@ -1,8 +1,7 @@
 import axios from "axios";
-import {BaseUrl} from "./Urls";
 
 const axiosApi = axios.create({
-    baseURL: BaseUrl
+    baseURL: https://akylbek-js25-default-rtdb.europe-west1.firebasedatabase.app/
 });
 
 export default axiosApi;
